@@ -6,12 +6,16 @@ from .models import User, Team, Activity, Leaderboard, Workout
 
 @api_view(['GET'])
 def api_root(request, format=None):
+    base_urls = [
+        'https://supreme-engine-j7pr5rrr5xvhxrj-8000.app.github.dev/',
+        'http://localhost:8000/'
+    ]
     return Response({
-        'users': 'api/users/',
-        'teams': 'api/teams/',
-        'activities': 'api/activities/',
-        'leaderboard': 'api/leaderboard/',
-        'workouts': 'api/workouts/',
+        'users': [url + 'api/users/?format=api' for url in base_urls],
+        'teams': [url + 'api/teams/?format=api' for url in base_urls],
+        'activities': [url + 'api/activities/?format=api' for url in base_urls],
+        'leaderboard': [url + 'api/leaderboard/?format=api' for url in base_urls],
+        'workouts': [url + 'api/workouts/?format=api' for url in base_urls]
     })
 
 class UserViewSet(viewsets.ModelViewSet):
